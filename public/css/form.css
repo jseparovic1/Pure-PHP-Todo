@@ -1,0 +1,21 @@
+.login input {
+    display: block;
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+.submit {
+    display: block;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 5px;
+    border: 1px solid #000;
+}
+.login .or {
+    display: block;
+    margin: 15px auto;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}

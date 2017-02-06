@@ -1,0 +1,182 @@
+/************* main styles *****************/
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100%;
+    margin-bottom: 250px;
+    background-color: #f2f4f8;
+}
+
+/**************    other   ******************/
+.form-group .alert-danger {
+    background-color: transparent;
+}
+/************* NAVBAR *****************/
+.navbar {
+    background-image: none;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.navbar .btn {
+    color: #fff;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 0;
+}
+.navbar .btn:hover {
+    text-decoration: underline;
+}
+.form-helptext {
+    margin-top: 10px;
+}
+.navbar-brand a {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 25px;
+}
+/************* LISTs LIST *****************/
+.add-list {
+    margin-bottom: 2%;
+}
+.icon-button {
+    display: inline-block;
+    background: none;
+    border: none;
+}
+.table>tbody>tr>td {
+    border-top: none;
+    vertical-align: middle;
+    padding: 5px;
+}
+.table {
+    border-color: #ffffff;
+}
+.inner {
+    margin-bottom: 8%;
+    height: 300px;
+    -moz-box-shadow:    1px 1px 1px 1px #ccc;
+    -webkit-box-shadow: 1px 1px 1px 1px #ccc;
+    box-shadow:         1px 1px 10px 1px #ccc;
+    background-color: #fff;
+}
+.title a {
+    color: white;
+    display: inline-block;
+}
+.title a:hover {
+    color: #adadaa;
+    text-decoration: none;
+}
+.title >.h4 {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+.inner >.h4 {
+    margin: 0;
+    padding: 15px;
+}
+.title {
+    background-color: #813772;
+    color: white;
+    padding: 3%;
+}
+.info {
+    padding: 2% 5%;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+.list-info li {
+    margin: 0;
+    text-align: justify;
+    list-style: none;
+}
+.bar {
+    margin-top: 25px;
+}
+.bar .progress {
+    border: 1px solid #bcbfc4;
+}
+.icon {
+    color:#fff;
+    font-size: 17px;
+    display: inline-block;
+    float: right;
+    margin-right: 2%;
+}
+.icon:hover {
+    color: #adadaa;
+}
+
+/************* LISTs sort *****************/
+
+#list-sort {
+    padding: 1%;
+}
+#list-sort
+.glyphicon {
+    font-size: 20px;
+    color:darkred;
+    margin-right: 2%;
+}
+#list-sort
+.glyphicon:hover {
+    color: red;
+}
+
+/************* TASK LIST *****************/
+.name, .deadline, .priority , .status , .options {
+    margin: 0;
+    padding: 1px;
+}
+.options button {
+    border: none;
+}
+.task-add {
+    margin-bottom: 4%;
+}
+.tasks {
+    font-size: 1em;
+}
+.tasks tr {
+    box-shadow: 0px 0px 1px 0px #ccc;
+}
+.add {
+    margin-bottom: 2%;
+}
+.options button {
+    background-color: transparent;
+}
+
+/************* FOOTER *****************/
+footer {
+    background-color:#48494f;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 200px;
+    color: #fff;
+}
+
+.footer-above {
+    background-color: #2C3E50;
+    padding-top: 10px;
+}
+.footer-col {
+    background-color: #2C3E50;
+    padding-bottom: 40px;
+}
+.footer-below {
+    padding: 25px 0;
+    text-align: center;
+    background-color: #233140;
+}
