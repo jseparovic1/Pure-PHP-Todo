@@ -9,7 +9,7 @@ class RegistrationModel extends Model
         return $this->errors;
     }
 
-    public function register($email,$password,$firstName,$lasName)
+    public function register($email,$password,$firstName,$lasName,$code)
     {
         $v = new Validate();
         //validate email
@@ -37,7 +37,7 @@ class RegistrationModel extends Model
         $user->setFirstName($firstName);
         $user->setLastName($lasName);
         $user->setUserEmail($email);
-        $user->setActivationCode(Hash::getActivationCode());
+        $user->setActivationCode($code);
         $user->setUserPassword(Hash::password($password));
         $user->save();
 

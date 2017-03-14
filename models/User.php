@@ -162,4 +162,13 @@ class User extends Model
 
         $statment->execute();
     }
+    public function updateStatus()
+    {
+        //prepare query for excaping sql injection
+        $statment = $this->db->prepare("UPDATE user SET status =:status WHERE user_email =:user_email");
+        $statment->bindParam(':user_email'	,$this->user_email,PDO::PARAM_STR);
+        $statment->bindParam(':status',$this->status,PDO::PARAM_STR);
+
+        $statment->execute();
+    }
 }
