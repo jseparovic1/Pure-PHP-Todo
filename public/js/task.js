@@ -15,7 +15,7 @@ function addTask(){
         //send data with ajax post
         $.ajax({
             type: 'POST',
-            url: 'task/insert',
+            url: 'task/new',
             data: {taskName: taskName, deadline: deadline, priority: priority, listId: listId}
         })
             .done(function(data) {
@@ -34,12 +34,12 @@ function addTask(){
 
 //delet task with taskId
 function taskDelete(taskId){
-
     //show confirmation modal
     $('#deleteModal').modal('show');
 
     //if user clicked confirm button delete task using ajax
     $('.confirmDelete').click(function(event) {
+
         $('#deleteModal').modal('hide');
         //do ajax request
         $.ajax({
@@ -49,7 +49,7 @@ function taskDelete(taskId){
         })
             .done(function(data) {
                 //task deleted so update task lsit
-                console.log("task deleted");
+                console.log(data);
             });
     });
 }
@@ -71,7 +71,7 @@ function taskFinish(taskId){
         })
             .done(function(data) {
                 //load task again
-                console.log("task finished");
+                console.log(data);
             });
     });
 }

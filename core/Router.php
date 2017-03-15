@@ -10,7 +10,8 @@ class Router
 {
     private $routes = [
         'GET' => [],
-        'POST' => []
+        'POST' => [],
+        'DELETE' => []
         ];
 
     /**
@@ -48,6 +49,17 @@ class Router
     public function post(string $uri, string $controllerAndMethod)
     {
         $this->routes['POST'][$uri] = $controllerAndMethod;
+    }
+
+    /**
+     * Register controller and method for a specifed delete route
+     *
+     * @param string $uri for example "login"
+     * @param string $controllerAndMethod HomeControler@methodName
+     */
+    public function delete(string $uri, string $controllerAndMethod)
+    {
+        $this->routes['DELETE'][$uri] = $controllerAndMethod;
     }
 
     /**

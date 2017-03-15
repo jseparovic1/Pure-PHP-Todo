@@ -47,4 +47,18 @@ class TodoTaskController extends Controller
         }
         return $this->view->renderTemlpate('task' , ['tasks' => $tasks]);
     }
+
+    public function deleteAction ()
+    {
+        var_dump($_POST['taskId']);
+        unset($_POST['taskId']);
+    }
+    public function finishAction ()
+    {
+        var_dump($_POST);
+    }
+    public function editAction ()
+    {
+        var_dump($_POST);
+    }
 }

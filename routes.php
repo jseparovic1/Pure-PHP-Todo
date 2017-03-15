@@ -28,7 +28,7 @@ $router->get('logout','LogOutController@indexAction');
 $router->get('list','TodoTaskController@indexAction');
 
 //task controls
-$router->post('task/insert','TodoTaskController@insertAction');
+$router->post('task/new','TodoTaskController@insertAction');
 $router->post('task/delete','TodoTaskController@deleteAction');
 $router->post('task/finish','TodoTaskController@finishAction');
 $router->post('task/edit','TodoTaskController@editAction');
