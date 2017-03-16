@@ -8,7 +8,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-success confirmFinish">Yes</button>
+                <button type="button" id="submit-finish" class="btn btn-success">Yes</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

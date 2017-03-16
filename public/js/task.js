@@ -1,85 +1,109 @@
+/**
+ * Controls for task like delete edit and finish
+ */
 
-//inserting task name into database
-function addTask(){
-    //get user input
-    var taskName 	= $('#task-modal-name').val();
-    var deadline 	= $('#task-modal-date').val();
-    var priority 	= $('#task-modal-priority').find(":selected").attr("value");
-    var listId 		= $('#list-modal-id').val();
 
-    //insert only if name is not empty
-    if ($.trim(taskName) != '' && $.trim(deadline)){
-        //hide modal
-        $('#taskModal').modal('hide');
+var request = new XMLHttpRequest();
+var finishButton = document.getElementById("submit-finish");
+var editButton = document.getElementById('submit-edit');
+var deleteButton = document.getElementById("submit-delete");
 
-        //send data with ajax post
-        $.ajax({
-            type: 'POST',
-            url: 'task/new',
-            data: {taskName: taskName, deadline: deadline, priority: priority, listId: listId}
-        })
-            .done(function(data) {
-                console.log("task insert done");
 
-                //append task data to table
-                $('#task-container').empty();
-                $('#task-container').append(data);
+function addTask() {
+    var response = '';
 
-                //empty entered values in modal
-                $('#task-name').val("");
-                $('#task-date').val("");
-            });
+    var container   = document.getElementById("task-container");
+    var listId 		= document.getElementById("list-modal-id").value;
+
+    //modal values
+    var taskName 	= document.getElementById("task-modal-name").value;
+    var deadline 	= document.getElementById("task-modal-date").value;
+    var priority 	= document.getElementById("task-modal-priority");
+    var prioritySelected = priority.options[priority.selectedIndex].value;
+
+    //chek if all fields are entered
+    if (taskName === "" || deadline === "") {
+        alert("Enter all fileds !");
+    }
+
+    var data = {
+        taskName : taskName,
+        deadline : deadline,
+        priority : prioritySelected,
+        listId : listId
+    };
+
+    response = makeRequest('POST', 'task/new', createParametars(data));
+    alert(response);
+    container.innerHTML = '';
+    container.appendChild = response;
+    $('#taskModal').modal('hide');
+
+}
+
+function taskFinish(taskId) {
+    $('#finishModal').modal('show');
+
+    //see if user clicks YES on finish modal then make ajax request
+    finishButton.onclick = function () {
+        makeRequest('POST','task/finish', taskId);
+        $('#finishModal').modal('hide');
     };
 }
 
-//delet task with taskId
-function taskDelete(taskId){
-    //show confirmation modal
+function taskDelete(taskId) {
     $('#deleteModal').modal('show');
-
-    //if user clicked confirm button delete task using ajax
-    $('.confirmDelete').click(function(event) {
-
+    console.log(deleteButton);
+    //see if user clicks YES on delete modal then make ajax request
+    deleteButton.onclick = function () {
+        makeRequest('POST','task/finish', taskId);
         $('#deleteModal').modal('hide');
-        //do ajax request
-        $.ajax({
-            type: 'POST',
-            url: 'task/delete',
-            data: {taskId: taskId},
-        })
-            .done(function(data) {
-                //task deleted so update task lsit
-                console.log(data);
-            });
-    });
+    };
 }
 
-//set status = finished in database for taskId
-function taskFinish(taskId){
-    //show modal
-    $('#finishModal').modal('show');
+/**
+ * Make ajax request
+ * @param type http request type like , POST,GET,PUT,DELTE ...
+ * @param url  send request to this url
+ * @param data
+ */
+function makeRequest(type, url, data)
+{
+    var response = '';
+    request.open(type, url, true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-    //if confirm button is clicked hide and call finish script
-    $('.confirmFinish').click(function(event) {
-        $('#finishModal').modal('hide');
+    request.onload = function () {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status === 200) {
+                response = request.responseText;
+            } else {
+                response = 'There was a problem with the request.';
+            }
+        }
+    };
 
-        //do ajax request
-        $.ajax({
-            type: 'POST',
-            url: 'task/finish',
-            data: {taskId: taskId},
-        })
-            .done(function(data) {
-                //load task again
-                console.log(data);
-            });
-    });
+    request.onerror = function() {
+        // There was a connection error of some sort
+        response += ('Error connecting to server !');
+    };
+
+    request.send(data);
+
+    return response;
 }
 
-//set status = finished in database for taskId
-function taskEdit(){
-    //show modal
-    $('#editModal').modal('show');
-
-    //do stuff
+/**
+ * Create string with parametars for ajax request
+ * @param data
+ */
+function createParametars(data) {
+    var ajaxString = '';
+    for (var property in data) {
+        if (ajaxString.length > 0) {
+            ajaxString += "&";
+        }
+        ajaxString += encodeURI(property + "=" + data[property]);
+    }
+    return ajaxString;
 }

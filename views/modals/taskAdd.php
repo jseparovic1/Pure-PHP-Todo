@@ -15,7 +15,6 @@
                     <div class="form-group">
                         <label >Deadline</label>
                         <input type="date" class="form-control" required id="task-modal-date">
-                        <input type="text" id="list-modal-id" hidden value="<?= $list->getListId() ?>">
                     </div>
                     <div class="form-group">
                         <label>Priority</label>
@@ -25,6 +24,7 @@
                             <option value="1">LOW</option>
                         </select>
                     </div>
+                    <input type="text" id="list-modal-id" hidden value="<?= $list->getListId() ?>">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

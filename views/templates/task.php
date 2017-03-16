@@ -1,8 +1,5 @@
 <?php  foreach ($tasks as $task) :?>
-<tr
-    <?php if ($task->isLate()) echo 'class="bg-danger"'; ?>
-    data-taskId="<?= $task->getTaskId()?>"
->
+<tr <?php if ($task->isLate()) echo 'class="bg-danger"'; ?> >
     <td id="task-name"><?= $task->getTaskName() ?> </td>
     <td id="task-deadline"><?= $task->getTaskDeadline() ?> </td>
     <td id="task-priority"><?= $task->getTaskPriority() ?> </td>
