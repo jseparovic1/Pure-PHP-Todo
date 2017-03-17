@@ -2,8 +2,17 @@
  * Controls for task like delete edit and finish
  */
 
-var listId 		= document.getElementById("list-modal-id").value;
+// ready();
+//
+// function ready(loadTaskDom) {
+//     if (document.readyState != 'loading'){
+//         loadTaskDom();
+//     } else {
+//         document.addEventListener('DOMContentLoaded',loadTaskDom);
+//     }
+// }
 
+var listId 		= document.getElementById("list-modal-id").value;
 var finishButton = document.getElementById("submit-finish");
 var editButton = document.getElementById('submit-edit');
 var deleteButton = document.getElementById("submit-delete");
@@ -30,12 +39,8 @@ function addTask() {
     };
 
     makeRequest('POST', 'tasks', createParametars(data));
-
     $('#taskModal').modal('hide');
-
-    //reset modal values
-    taskName.value = '';
-    deadline.value = '';
+    flashMessage("Task added", "alert-success");
 }
 
 function taskFinish(taskId) {
@@ -63,8 +68,8 @@ function taskDelete(taskId) {
         //update task count in list details
         taskCount("delete");
         $('#deleteModal').modal('hide');
+        flashMessage("Task deleted", "alert-success");
     };
-
 }
 
 /**
@@ -125,7 +130,24 @@ function taskCount(operation) {
     } else {
         taskCount--;
     }
-    console.log("task count =" + taskCount);
 
     task.textContent = taskCount.toString();
+}
+
+/**
+ * Flash message to message div for 1 second
+ * @param message
+ * @param elementClass
+ */
+function flashMessage(message, elementClass) {
+    var messageDiv = document.getElementById("message");
+    messageDiv.innerHTML = message;
+
+    messageDiv.classList.add(elementClass);
+    messageDiv.style.display = '';
+
+    //hide message
+    setTimeout(function (){
+        messageDiv.style.display = 'none';
+    }, 2000);
 }

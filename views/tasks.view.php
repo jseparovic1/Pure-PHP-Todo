@@ -25,6 +25,13 @@
     </div>
     <button class="btn btn-primary" data-toggle="modal" data-target="#taskModal">New task</button>
 </div>
+
+<div class="container">
+    <div class="alert margin20" id="message" style="display: none;" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="table-responsive table-condensed tasks">

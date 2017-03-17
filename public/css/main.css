@@ -1,4 +1,8 @@
 /************* main styles *****************/
+
+* {
+    box-sizing: border-box;
+}
 html {
     position: relative;
     min-height: 100%;
@@ -8,6 +12,16 @@ body {
     height: 100%;
     margin-bottom: 250px;
     background-color: #f2f4f8;
+}
+
+/************* utility *********************/
+.margin20 {
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+.padding {
+    padding: 20px;
 }
 
 /**************    other   ******************/
