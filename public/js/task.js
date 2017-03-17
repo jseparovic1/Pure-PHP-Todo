@@ -3,17 +3,14 @@
  */
 
 
-var request = new XMLHttpRequest();
+var listId 		= document.getElementById("list-modal-id").value;
+
 var finishButton = document.getElementById("submit-finish");
 var editButton = document.getElementById('submit-edit');
 var deleteButton = document.getElementById("submit-delete");
 
-
 function addTask() {
     var response = '';
-
-    var container   = document.getElementById("task-container");
-    var listId 		= document.getElementById("list-modal-id").value;
 
     //modal values
     var taskName 	= document.getElementById("task-modal-name").value;
@@ -33,12 +30,13 @@ function addTask() {
         listId : listId
     };
 
-    response = makeRequest('POST', 'task/new', createParametars(data));
-    alert(response);
-    container.innerHTML = '';
-    container.appendChild = response;
+    makeRequest('POST', 'task/new', createParametars(data));
+
     $('#taskModal').modal('hide');
 
+    //reset modal values
+    taskName.value = '';
+    deadline.value = '';
 }
 
 function taskFinish(taskId) {
@@ -53,44 +51,50 @@ function taskFinish(taskId) {
 
 function taskDelete(taskId) {
     $('#deleteModal').modal('show');
-    console.log(deleteButton);
+
     //see if user clicks YES on delete modal then make ajax request
+    var data = {
+        taskId : taskId,
+        listId : listId
+    };
+
     deleteButton.onclick = function () {
-        makeRequest('POST','task/finish', taskId);
+        makeRequest('POST','task/delete', createParametars(data));
         $('#deleteModal').modal('hide');
     };
 }
 
 /**
- * Make ajax request
+ * Make ajax request and add data to task container
  * @param type http request type like , POST,GET,PUT,DELTE ...
  * @param url  send request to this url
  * @param data
  */
 function makeRequest(type, url, data)
 {
-    var response = '';
+    var request = new XMLHttpRequest();
     request.open(type, url, true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     request.onload = function () {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
-                response = request.responseText;
+                //append data to container
+                var container   = document.getElementById("task-container");
+                container.innerHTML = '';
+                container.innerHTML = request.responseText;
             } else {
-                response = 'There was a problem with the request.';
+                alert('There was a problem with the request.');
             }
         }
     };
 
     request.onerror = function() {
         // There was a connection error of some sort
-        response += ('Error connecting to server !');
+        alert('Error connecting to server !');
     };
 
     request.send(data);
-
-    return response;
 }
 
 /**

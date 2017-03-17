@@ -59,8 +59,8 @@ class RegistrationController extends Controller
 
     public function activateAction()
     {
-        $code = $_GET['c'];
-        $email = $_GET['e'];
+        $code = Request::get('c');
+        $email = Request::get('e');
 
         $user = $this->db->select('user', ['user_email' => $email], 'User');
 

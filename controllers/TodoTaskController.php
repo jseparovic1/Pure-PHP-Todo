@@ -50,8 +50,14 @@ class TodoTaskController extends Controller
 
     public function deleteAction ()
     {
-        var_dump($_POST['taskId']);
-        unset($_POST['taskId']);
+        $this->db->delete(
+            'task',
+            [
+                "task_id" => Request::post('taskId') ,
+                "list_id" =>  Request::post('listId')
+            ],
+            'AND'
+        );
     }
     public function finishAction ()
     {

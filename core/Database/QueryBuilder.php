@@ -33,13 +33,14 @@ class QueryBuilder
         $placeHolder = array_map(function($param) {
             return ":". $param;
         },$column);
-        //create query
 
+        //create query
         $query = sprintf('SELECT * FROM %s WHERE %s = %s;',
             $table,
             implode(',',$column),
             implode(',',$placeHolder)
         );
+
         $statment = $this->pdo->prepare($query);
 
         try {
@@ -47,6 +48,7 @@ class QueryBuilder
         } catch (PDOexception $e) {
             die("Something went wrong!");
         }
+
         //check if classname is set
         if ($className) {
             return $statment->fetchAll(PDO::FETCH_CLASS,"$className");
@@ -123,5 +125,65 @@ class QueryBuilder
         } catch (PDOexception $e) {
             die("Something went wrong!");
         }
+    }
+
+    /**
+     * delete data from table
+     *
+     * @param $table
+     * @param $parameters
+     * @param $join
+     * @return array
+     */
+    public function delete($table, $parameters, $join = '')
+    {
+        //get all columns
+        $columns = array_keys($parameters);
+
+        //create placeholders for every param
+        $placeHolder = array_map(function($param) {
+            return ":". $param;
+        },$columns);
+
+        //create query condition
+        $condition = $this->makeCondition($columns, $placeHolder, $join);
+
+        $query = sprintf('DELETE FROM %s WHERE %s;',
+            $table,
+            $condition
+        );
+
+        $statment = $this->pdo->prepare($query);
+
+        try {
+            $statment->execute($parameters);
+        } catch (PDOexception $e) {
+            die("Something went wrong!");
+        }
+    }
+
+    private function makeCondition($columns, $placeholders, $join)
+    {
+        //create query condition
+        $condition = '';
+        $length = count($columns);
+        if ($length === 1) {
+            return $columns ." ". $placeholders ;
+        }
+        for ($i = 0; $i < $length ; $i++) {
+            if ($i === $length-1) {
+                $condition .=  sprintf('%s = %s ',
+                    $columns[$i],
+                    $placeholders[$i]
+                );
+            } else {
+                $condition .=  sprintf('%s = %s %s ',
+                    $columns[$i],
+                    $placeholders[$i],
+                    $join
+                );
+            }
+        }
+        return $condition;
     }
 }

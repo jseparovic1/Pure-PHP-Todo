@@ -31,11 +31,23 @@ abstract class Controller
         $this->view = new View();
     }
 
+    /**
+     * Creates an instance of model
+     * @param $name
+     * @return mixed
+     */
     public function getModel($name)
     {
         require '../models/' . $name . '.php';
         return $name = new $name();
     }
+
+    /**
+     * Requires model
+     *
+     * @param $name
+     * @return mixed
+     */
     public function requireModel($name)
     {
         return require '../models/' . $name . '.php';
