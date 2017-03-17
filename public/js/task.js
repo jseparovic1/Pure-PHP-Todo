@@ -12,12 +12,10 @@
 //     }
 // }
 
-var listId 		= document.getElementById("list-modal-id").value;
-var finishButton = document.getElementById("submit-finish");
 var editButton = document.getElementById('submit-edit');
-var deleteButton = document.getElementById("submit-delete");
 
 function addTask() {
+    var listId 		= document.getElementById("list-modal-id").value;
     var response = '';
 
     //modal values
@@ -44,6 +42,8 @@ function addTask() {
 }
 
 function taskFinish(taskId) {
+    var finishButton = document.getElementById("submit-finish");
+
     $('#finishModal').modal('show');
 
     //see if user clicks YES on finish modal then make ajax request
@@ -54,6 +54,9 @@ function taskFinish(taskId) {
 }
 
 function taskDelete(taskId) {
+    
+    var deleteButton = document.getElementById("submit-delete");
+    var listId 		= document.getElementById("list-modal-id").value;
     $('#deleteModal').modal('show');
 
     //see if user clicks YES on delete modal then make ajax request
