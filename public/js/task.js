@@ -2,18 +2,6 @@
  * Controls for task like delete edit and finish
  */
 
-// ready();
-//
-// function ready(loadTaskDom) {
-//     if (document.readyState != 'loading'){
-//         loadTaskDom();
-//     } else {
-//         document.addEventListener('DOMContentLoaded',loadTaskDom);
-//     }
-// }
-
-var editButton = document.getElementById('submit-edit');
-
 function addTask() {
     var listId 		= document.getElementById("list-modal-id").value;
     var response = '';

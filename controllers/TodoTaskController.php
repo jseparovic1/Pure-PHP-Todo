@@ -57,6 +57,7 @@ class TodoTaskController extends Controller
 
         $this->showTasks(Request::post('listId'));
     }
+
     public function finish ()
     {
         var_dump($_POST);

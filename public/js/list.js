@@ -38,5 +38,3 @@ function sortList(order)
             $("#list-container").append(data);
         })
 }
-
-

@@ -12,7 +12,7 @@ class Task extends Model
     private $list_id;
     private $task_deadline;
     private $task_deadline_str;
-    private $task_status;
+    private $task_status = 0;
     private $task_status_str;
     private $task_passed;
 
@@ -111,6 +111,7 @@ class Task extends Model
 
         $this->task_deadline_str = $str;
     }
+
     public function priorityToStr()
     {
         switch ($this->task_priority) {
@@ -127,6 +128,7 @@ class Task extends Model
                 break;
         }
     }
+
     public function statusToStr()
     {
         switch ($this->task_status) {
@@ -145,13 +147,14 @@ class Task extends Model
     {
         //prepare query for excaping sql injection
         $statment = $this->db->prepare(
-            "INSERT INTO task (list_id,task_name,task_deadline,task_priority)  
-             VALUES (:listId,:taskName,:deadline,:priority)"
+            "INSERT INTO task (list_id,task_name,task_deadline,task_priority,task_status)  
+             VALUES (:listId,:taskName,:deadline,:priority,:status)"
         );
         $statment->bindParam(':listId'	,$this->list_id,PDO::PARAM_INT);
         $statment->bindParam(':taskName',$this->task_name,PDO::PARAM_STR);
         $statment->bindParam(':deadline',$this->task_deadline);
         $statment->bindParam(':priority',$this->task_priority,PDO::PARAM_INT);
+        $statment->bindParam(':status',$this->task_status,PDO::PARAM_INT);
 
         $statment->execute();
     }

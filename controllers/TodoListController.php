@@ -11,12 +11,6 @@ class TodoListController extends Controller
         $this->requireModel('TodoList');
         $lists = $this->db->select('list',['user_id' => (int)$_SESSION['user_id']], 'TodoList');
 
-        foreach ($lists as $list) {
-            $list->countTask();
-            $list->countUnfinishedTasks();
-            $list->countFinishedTasks();
-            $list->countProgress();
-        }
         return $this->view->render('todos', ['title' => 'Todo lists' , 'lists' => $lists]);
     }
 
@@ -25,6 +19,7 @@ class TodoListController extends Controller
         if (empty(Request::post('listName'))) {
             return $this->indexAction();
         }
+
         $listModel = $this->getModel('TodoList');
 
         //get post data
@@ -37,7 +32,8 @@ class TodoListController extends Controller
         $newList = $this->db->select('list',['list_name' => $listModel->getListname()]);
 
         //create path
-        $path = "/list?id=".(int)$newList[0]->list_id;
+        $path = "/tasks?listId=".(int)$newList[0]->list_id;
+        var_dump($path);
         Redirect::to($path);
     }
 
@@ -47,21 +43,18 @@ class TodoListController extends Controller
         if (!Request::post('list_id')) {
             return false;
         }
-        $listModel = $this->getModel('TodoList');
 
-        $deleted = $listModel->delete(Request::post('list_id') , (int)$_SESSION['user_id']);
+        $list_id = Request::post('list_id');
+        $user_id = (int)$_SESSION['user_id'];
+
+        $deleted = $this->db->delete('list',["list_id" => $list_id, "user_id" => $user_id],"AND");
+
         if ($deleted === '0') {
             return false;
         }
 
+        $listModel = $this->requireModel('TodoList');
         $lists = $this->db->select('list',['user_id' => (int)$_SESSION['user_id']], 'TodoList');
-
-        foreach ($lists as $list) {
-            $list->countTask();
-            $list->countUnfinishedTasks();
-            $list->countFinishedTasks();
-            $list->countProgress();
-        }
 
         //get post data
        return $this->view->renderTemlpate('list' , ['lists' => $lists , 'actionMessage' => 'List deleted!']);
@@ -84,13 +77,6 @@ class TodoListController extends Controller
                 $this->requireModel('TodoList');
                 $lists = $this->db->selectSorted('list',['user_id' => (int)$_SESSION['user_id']], 'TodoList','list_name','DESC');
                 break;
-        }
-
-        foreach ($lists as $list) {
-            $list->countTask();
-            $list->countUnfinishedTasks();
-            $list->countFinishedTasks();
-            $list->countProgress();
         }
 
         //get post data

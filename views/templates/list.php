@@ -1,7 +1,8 @@
 <?php if (isset($actionMessage)) : ?>
-    <div class="alert alert-success" role="alert"><?= $actionMessage ?></div>
+    <div id="list-message" class="alert alert-success" role="alert"><?= $actionMessage ?> </div>
 <?php endif ?>
 <?php foreach ($lists as $list) : ?>
+    <?php $list->countAll(); ?>
 <div class="col-md-6 col-lg-4">
     <div class="inner">
         <div class="title">
