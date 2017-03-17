@@ -60,17 +60,26 @@ class TodoTaskController extends Controller
 
     public function finish ()
     {
-        var_dump($_POST);
+        $setParams = [
+          "task_status" => 1
+        ];
+        $whereParams = [
+            "task_id" => Request::post('taskId')
+        ];
+        $this->db->update('task', $setParams, $whereParams);
+
+        $this->showTasks(Request::post('listId'));
     }
+
     public function edit ()
     {
         var_dump($_POST);
     }
 
-    protected function showTasks(int $listId)
+    protected function showTasks(int $listId,string $orderColumn = 'task_deadline',string $order = 'ASC')
     {
         $task = $this->requireModel('Task');
-        $tasks = $this->db->select('task',['list_id' =>$listId],'Task');
+        $tasks = $this->db->selectSorted('task',['list_id' =>$listId],'Task', $orderColumn, $order);
 
         return $this->view->renderTemlpate('task' , ['tasks' => $tasks]);
     }

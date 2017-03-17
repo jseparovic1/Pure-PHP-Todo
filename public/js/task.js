@@ -30,14 +30,22 @@ function addTask() {
 }
 
 function taskFinish(taskId) {
+    var listId 		= document.getElementById("list-modal-id").value;
     var finishButton = document.getElementById("submit-finish");
 
     $('#finishModal').modal('show');
 
+    //data to send
+    var data = {
+        taskId : taskId,
+        listId : listId
+    };
+
     //see if user clicks YES on finish modal then make ajax request
     finishButton.onclick = function () {
-        makeRequest('POST','task/finish', taskId);
+        makeRequest('POST','task/finish', createParametars(data));
         $('#finishModal').modal('hide');
+        flashMessage("Nice man, task finished. Rock on!", "alert-success");
     };
 }
 

@@ -134,8 +134,8 @@ class QueryBuilder
      *
      * @param $table
      * @param $parameters
-     * @param $join
-     * @return array
+     * @param string $join
+     * @throws Exception
      */
     public function delete($table, $parameters, $join = '')
     {
@@ -166,6 +166,60 @@ class QueryBuilder
             die("Something went wrong!");
         }
     }
+
+    /**
+     * delete data from table
+     *
+     * @param $table
+     * @param $parameters
+     * @param string $join
+     * @throws Exception
+     */
+    public function update($table, $setParams, $whereParams, $join = '')
+    {
+        $setRules = '';
+
+        //get all column names to be updated
+        $setColumns = array_keys($setParams);
+
+        //create placeholders for every param
+        $setPlaceholder = array_map(function($param) {
+            return ":". $param;
+        },$setColumns);
+
+        for ($i = 0; $i < count($setColumns); $i++) {
+            $setRules .= sprintf('%s = %s,',
+                $setColumns[$i],
+                $setPlaceholder[$i]
+            );
+        }
+        $setRules = trim($setRules,",");
+
+        //get all columns for condition
+        $columnsParams = array_keys($whereParams);
+
+        //create placeholders for every param
+        $conditionPlaceholder = array_map(function($param) {
+            return ":". $param;
+        },$columnsParams);
+
+        //create query condition
+        $condition = $this->makeCondition($columnsParams, $conditionPlaceholder, $join);
+
+        $query = sprintf('UPDATE %s SET %s WHERE %s;',
+            $table,
+            $setRules,
+            $condition
+        );
+
+        $statment = $this->pdo->prepare($query);
+        try {
+            $statment->execute(array_merge($setParams,$whereParams));
+        } catch (PDOexception $e) {
+            die("Something went wrong!");
+        }
+    }
+
 
     private function makeCondition($columns, $placeholders, $join)
     {
