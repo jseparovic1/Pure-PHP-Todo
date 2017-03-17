@@ -24,12 +24,14 @@ $router->post('delete','TodoListController@deleteAction');
 //logout
 $router->get('logout','LogOutController@indexAction');
 
-//list tasks page
-$router->get('list','TodoTaskController@indexAction');
+//show tasks
+$router->get('tasks','TodoTaskController@index');
+
+//insert task
+$router->post('tasks','TodoTaskController@store');
 
 //task controls
-$router->post('task/new','TodoTaskController@insertAction');
-$router->post('task/delete','TodoTaskController@deleteAction');
-$router->post('task/finish','TodoTaskController@finishAction');
-$router->post('task/edit','TodoTaskController@editAction');
+$router->post('task/delete','TodoTaskController@delete');
+$router->post('task/finish','TodoTaskController@finish');
+$router->post('task/edit','TodoTaskController@edit');
 

@@ -5,10 +5,10 @@
  */
 class TodoTaskController extends Controller
 {
-    public function indexAction()
+    public function index()
     {
         //user submitted list id
-        $listId = Request::get('id');
+        $listId = Request::get('listId');
         if (empty($listId)) {
             return Redirect::to('todos');
         }
@@ -24,12 +24,14 @@ class TodoTaskController extends Controller
         $this->requireModel('Task');
         $tasks = $this->db->select('task',['list_id' => $list->getListId()],'Task');
         foreach ($tasks as $task) {
-            $task->covertDeadlinePriorityAndStatusToStr();
+            $task->deadLineToStr();
+            $task->statusToStr();
+            $task->priorityToStr();
         }
 
         return $this->view->render('tasks', ['title' => 'Tasks', 'list' => $list, 'tasks' => $tasks]);
     }
-    public function insertAction()
+    public function store()
     {
         $task = $this->getModel('Task');
 
@@ -43,12 +45,14 @@ class TodoTaskController extends Controller
         $tasks = $this->db->select('task',['list_id' => Request::post('listId')],'Task');
 
         foreach ($tasks as $task) {
-            $task->covertDeadlinePriorityAndStatusToStr();
+            $task->deadLineToStr();
+            $task->statusToStr();
+            $task->priorityToStr();
         }
         return $this->view->renderTemlpate('task' , ['tasks' => $tasks]);
     }
 
-    public function deleteAction ()
+    public function delete ()
     {
         $this->db->delete(
             'task',
@@ -59,11 +63,11 @@ class TodoTaskController extends Controller
             'AND'
         );
     }
-    public function finishAction ()
+    public function finish ()
     {
         var_dump($_POST);
     }
-    public function editAction ()
+    public function edit ()
     {
         var_dump($_POST);
     }

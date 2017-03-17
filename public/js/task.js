@@ -30,7 +30,7 @@ function addTask() {
         listId : listId
     };
 
-    makeRequest('POST', 'task/new', createParametars(data));
+    makeRequest('POST', 'tasks', createParametars(data));
 
     $('#taskModal').modal('hide');
 

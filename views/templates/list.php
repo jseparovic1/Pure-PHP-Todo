@@ -6,7 +6,7 @@
     <div class="inner">
         <div class="title">
             <div class="h4">
-                <a class="list-link" href="/list?id=<?= $list->getListId(); ?>"> <?= $list->getListName(); ?> </a>
+                <a class="list-link" href="/tasks?listId=<?= $list->getListId(); ?>"> <?= $list->getListName(); ?> </a>
                 <a class="icon" ">
                 <button class="icon-button" id="deleteList" data-listId="<?= $list->getListId(); ?>">
                     <span class="glyphicon glyphicon-remove"></span>

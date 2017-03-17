@@ -8,9 +8,12 @@ class Task extends Model
     private $task_id;
     private $task_name;
     private $task_priority;
+    private $task_priority_str;
     private $list_id;
     private $task_deadline;
+    private $task_deadline_str;
     private $task_status;
+    private $task_status_str;
     private $task_passed;
 
     public function isLate()
@@ -40,7 +43,7 @@ class Task extends Model
 
     public function getTaskPriority()
     {
-        return $this->task_priority;
+        return $this->task_priority_str;
     }
 
     public function setTaskPriority($task_priority)
@@ -50,7 +53,7 @@ class Task extends Model
 
     public function getTaskStatus()
     {
-        return $this->task_status;
+        return $this->task_status_str;
     }
 
     public function setTaskStatus($task_status)
@@ -60,7 +63,7 @@ class Task extends Model
 
     public function getTaskDeadline()
     {
-        return $this->task_deadline;
+        return $this->task_deadline_str;
     }
 
     public function setTaskDeadline($task_deadline)
@@ -80,7 +83,7 @@ class Task extends Model
     public function deadLineToStr()
     {
         $deadline = new DateTime($this->task_deadline);
-        $now = new DateTime('NOW');
+        $now = new DateTime();
         $diff = $deadline->diff($now);
 
         $str = '';
@@ -97,24 +100,26 @@ class Task extends Model
             $str.= ($diff->y > 1) ? ' years ' : ' year ';
         }
 
-        if ($deadline < $now) {
+        if ($diff->days === 0 && $diff->m === 0 && $diff->y ===0) {
+            $str.= 'TODAY';
+        } else if ($deadline < $now) {
             $str .= ' ago';
             $this->task_passed = true;
         }
 
-        $this->task_deadline = $str;
+        $this->task_deadline_str = $str;
     }
     public function priorityToStr()
     {
         switch ($this->task_priority) {
             case 1:
-                $this->task_priority = "LOW";
+                $this->task_priority_str = "LOW";
                 break;
             case 2:
-                $this->task_priority = "MEDIUM";
+                $this->task_priority_str = "MEDIUM";
                 break;
             case 3:
-                $this->task_priority = "HIGH";
+                $this->task_priority_str = "HIGH";
                 break;
             default:
                 break;
@@ -124,21 +129,16 @@ class Task extends Model
     {
         switch ($this->task_status) {
             case 0:
-                $this->task_status = "unfinished";
+                $this->task_status_str = "unfinished";
                 break;
             case 1:
-                $this->task_status = "finished";
+                $this->task_status_str = "finished";
                 break;
             default:
                 break;
         }
     }
-    public function covertDeadlinePriorityAndStatusToStr()
-    {
-        $this->deadLineToStr();
-        $this->statusToStr();
-        $this->priorityToStr();
-    }
+
     public function save()
     {
         //prepare query for excaping sql injection
