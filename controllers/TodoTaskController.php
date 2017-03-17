@@ -23,11 +23,6 @@ class TodoTaskController extends Controller
 
         $this->requireModel('Task');
         $tasks = $this->db->select('task',['list_id' => $list->getListId()],'Task');
-        foreach ($tasks as $task) {
-            $task->deadLineToStr();
-            $task->statusToStr();
-            $task->priorityToStr();
-        }
 
         return $this->view->render('tasks', ['title' => 'Tasks', 'list' => $list, 'tasks' => $tasks]);
     }
@@ -44,11 +39,6 @@ class TodoTaskController extends Controller
 
         $tasks = $this->db->select('task',['list_id' => Request::post('listId')],'Task');
 
-        foreach ($tasks as $task) {
-            $task->deadLineToStr();
-            $task->statusToStr();
-            $task->priorityToStr();
-        }
         return $this->view->renderTemlpate('task' , ['tasks' => $tasks]);
     }
 
@@ -62,6 +52,8 @@ class TodoTaskController extends Controller
             ],
             'AND'
         );
+
+        $this->showTasks(Request::post('listId'));
     }
     public function finish ()
     {
@@ -70,5 +62,13 @@ class TodoTaskController extends Controller
     public function edit ()
     {
         var_dump($_POST);
+    }
+
+    protected function showTasks(int $listId)
+    {
+        $task = $this->requireModel('Task');
+        $tasks = $this->db->select('task',['list_id' =>$listId],'Task');
+
+        return $this->view->renderTemlpate('task' , ['tasks' => $tasks]);
     }
 }

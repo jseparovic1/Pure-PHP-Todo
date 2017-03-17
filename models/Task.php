@@ -43,6 +43,7 @@ class Task extends Model
 
     public function getTaskPriority()
     {
+        $this->priorityToStr();
         return $this->task_priority_str;
     }
 
@@ -53,6 +54,7 @@ class Task extends Model
 
     public function getTaskStatus()
     {
+        $this->statusToStr();
         return $this->task_status_str;
     }
 
@@ -63,6 +65,7 @@ class Task extends Model
 
     public function getTaskDeadline()
     {
+        $this->deadLineToStr();
         return $this->task_deadline_str;
     }
 
@@ -75,7 +78,6 @@ class Task extends Model
     {
         $this->list_id = $list_id;
     }
-
 
     /**
      * Coverts deadline to days,months,years left or ago

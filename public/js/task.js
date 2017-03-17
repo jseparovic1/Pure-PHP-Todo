@@ -2,7 +2,6 @@
  * Controls for task like delete edit and finish
  */
 
-
 var listId 		= document.getElementById("list-modal-id").value;
 
 var finishButton = document.getElementById("submit-finish");
@@ -60,8 +59,12 @@ function taskDelete(taskId) {
 
     deleteButton.onclick = function () {
         makeRequest('POST','task/delete', createParametars(data));
+
+        //update task count in list details
+        taskCount("delete");
         $('#deleteModal').modal('hide');
     };
+
 }
 
 /**
@@ -110,4 +113,19 @@ function createParametars(data) {
         ajaxString += encodeURI(property + "=" + data[property]);
     }
     return ajaxString;
+}
+
+function taskCount(operation) {
+
+    var task = document.getElementById("table-tasks");
+    var taskCount = parseInt(task.textContent);
+
+    if (operation === 'add') {
+        taskCount++;
+    } else {
+        taskCount--;
+    }
+    console.log("task count =" + taskCount);
+
+    task.textContent = taskCount.toString();
 }
