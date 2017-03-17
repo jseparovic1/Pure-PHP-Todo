@@ -73,7 +73,18 @@ class TodoTaskController extends Controller
 
     public function edit ()
     {
-        var_dump($_POST);
+        $setParams = [
+            "task_name" => Request::post('taskName'),
+            "task_deadline" => Request::post('deadline'),
+            "task_priority" => Request::post('priority')
+        ];
+        $whereParams = [
+            "task_id" => Request::post('taskId')
+        ];
+
+        $this->db->update('task', $setParams, $whereParams);
+
+        $this->showTasks(Request::post('listId'));
     }
 
     protected function showTasks(int $listId,string $orderColumn = 'task_deadline',string $order = 'ASC')

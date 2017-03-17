@@ -14,7 +14,7 @@ function addTask() {
 
     //chek if all fields are entered
     if (taskName === "" || deadline === "") {
-        alert("Enter all fileds !");
+        return alert("Enter all fileds !");
     }
 
     var data = {
@@ -27,6 +27,44 @@ function addTask() {
     makeRequest('POST', 'tasks', createParametars(data));
     $('#taskModal').modal('hide');
     flashMessage("Task added", "alert-success");
+}
+
+function taskEdit(taskId, task) {
+    var task = task.parentNode.parentNode.parentNode;
+    var editButton = document.getElementById("submit-edit");
+
+    //fetch clicked task data
+    var name = task.querySelector("#task-name").innerText;
+
+    //get modal input
+    var nameModal = document.getElementById("task-name");
+
+    //populate modal
+    nameModal.value = name;
+
+    $('#editModal').modal('show');
+
+    //see if user clicks YES on finish modal then make ajax request
+    editButton.onclick = function () {
+        var taskName 	= document.getElementById("task-name").value;
+        var deadline 	= document.getElementById("task-date").value;
+        var priority 	= document.getElementById("priority");
+        var listId 		= document.getElementById("list-modal-id").value;
+
+        var prioritySelected = priority.options[priority.selectedIndex].value;
+
+        var data = {
+            taskName : taskName,
+            deadline : deadline,
+            priority : prioritySelected,
+            listId   : listId,
+            taskId : taskId
+        };
+
+        makeRequest('POST','task/edit', createParametars(data));
+        $('#editModal').modal('hide');
+        flashMessage("Task "+ taskName +" edited", "alert-success");
+    };
 }
 
 function taskFinish(taskId) {

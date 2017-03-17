@@ -14,7 +14,7 @@
                     </div>
                     <div class="form-group">
                         <label >Deadline</label>
-                        <input type="date" class="form-control" required id="task-date">
+                        <input type="date" id="task-date" class="form-control" required value="">
                     </div>
                     <div class="form-group">
                         <label>Priority</label>
