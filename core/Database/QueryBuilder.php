@@ -23,22 +23,24 @@ class QueryBuilder
      * @param $table
      * @param $parameters
      * @param $className
+     * @param $join AND OR ...
      * @return array
      */
-    public function select($table, $parameters, $className = [])
+    public function select($table, $parameters, $className = [], $join = '')
     {
         //get all columns
-        $column = array_keys($parameters);
+        $columns = array_keys($parameters);
         //create placeholders for every param
-        $placeHolder = array_map(function($param) {
+        $placeHolders = array_map(function($param) {
             return ":". $param;
-        },$column);
+        },$columns);
 
-        //create query
-        $query = sprintf('SELECT * FROM %s WHERE %s = %s;',
+        //create query condition
+        $condition = $this->makeCondition($columns, $placeHolders, $join);
+
+        $query = sprintf('SELECT * FROM %s WHERE %s;',
             $table,
-            implode(',',$column),
-            implode(',',$placeHolder)
+            $condition
         );
 
         $statment = $this->pdo->prepare($query);
@@ -137,6 +139,9 @@ class QueryBuilder
      */
     public function delete($table, $parameters, $join = '')
     {
+        if ($join === '' and count($parameters) > 1 ) {
+            throw new Exception('Join parameter not specified !');
+        }
         //get all columns
         $columns = array_keys($parameters);
 
@@ -168,8 +173,9 @@ class QueryBuilder
         $condition = '';
         $length = count($columns);
         if ($length === 1) {
-            return $columns ." ". $placeholders ;
+            return $condition .= $columns[0] ." = ". $placeholders[0];
         }
+
         for ($i = 0; $i < $length ; $i++) {
             if ($i === $length-1) {
                 $condition .=  sprintf('%s = %s ',

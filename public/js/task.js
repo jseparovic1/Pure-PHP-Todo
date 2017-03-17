@@ -54,7 +54,7 @@ function taskFinish(taskId) {
 }
 
 function taskDelete(taskId) {
-    
+
     var deleteButton = document.getElementById("submit-delete");
     var listId 		= document.getElementById("list-modal-id").value;
     $('#deleteModal').modal('show');

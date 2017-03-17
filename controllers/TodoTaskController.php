@@ -13,19 +13,21 @@ class TodoTaskController extends Controller
             return Redirect::to('todos');
         }
 
-        $listModel = $this->getModel('TodoList');
-        $list = $listModel->selectById($listId,(int)$_SESSION['user_id']);
+        $listModel = $this->requireModel('TodoList');
+        $list = $this->db->select('list',['list_id' => $listId, "user_id" => (int)$_SESSION['user_id']],'TodoList','AND');
+
         if (empty($list)) {
             return Redirect::to('todos');
         }
 
-        $list->countTask();
+        $list[0]->countTask();
 
         $this->requireModel('Task');
-        $tasks = $this->db->select('task',['list_id' => $list->getListId()],'Task');
+        $tasks = $this->db->select('task',['list_id' => $list[0]->getListId()],'Task');
 
-        return $this->view->render('tasks', ['title' => 'Tasks', 'list' => $list, 'tasks' => $tasks]);
+        return $this->view->render('tasks', ['title' => 'Tasks', 'list' => $list[0], 'tasks' => $tasks]);
     }
+
     public function store()
     {
         $task = $this->getModel('Task');

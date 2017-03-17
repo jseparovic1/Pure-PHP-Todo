@@ -90,22 +90,4 @@ class TodoList extends Model
 
         return $statment->rowCount();
     }
-
-    /**
-     * Select list by it's id
-     *
-     * @param $list_id
-     * @param $user_id
-     * @return array
-     */
-    public function selectById($list_id, $user_id)
-    {
-        $statment = $this->db->prepare("SELECT * FROM list WHERE list_id = :list_id AND user_id = :user_id");
-        $statment->bindParam(':list_id',$list_id,PDO::PARAM_INT);
-        $statment->bindParam(':user_id',$user_id,PDO::PARAM_INT);
-        $statment->setFetchMode(PDO::FETCH_CLASS, 'TodoList');
-        $statment->execute();
-
-        return $statment->fetch();
-    }
 }
