@@ -9,7 +9,7 @@
             <div class="h4">
                 <a class="list-link" href="/tasks?listId=<?= $list->getListId(); ?>"> <?= $list->getListName(); ?> </a>
                 <a class="icon" ">
-                <button class="icon-button" id="deleteList" data-listId="<?= $list->getListId(); ?>">
+                <button class="icon-button" id="deleteList" onclick="listDelete(this)" data-listId="<?= $list->getListId(); ?>">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
                 </a>

@@ -18,16 +18,15 @@ $router->get('activate','RegistrationController@activateAction');
 //toodo lists page
 $router->get('todos','TodoListController@indexAction');
 $router->post('todos','TodoListController@createAction');
-$router->post('sort','TodoListController@sortAction');
-$router->post('delete','TodoListController@deleteAction');
+$router->post('todos/sort','TodoListController@sortAction');
+$router->post('todos/delete','TodoListController@deleteAction');
 
 //logout
 $router->get('logout','LogOutController@indexAction');
 
-//show tasks
+//get tasks
 $router->get('tasks','TodoTaskController@index');
-
-//insert task
+//new task
 $router->post('tasks','TodoTaskController@store');
 
 //task controls

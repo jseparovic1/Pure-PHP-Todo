@@ -57,29 +57,38 @@ class TodoListController extends Controller
         $lists = $this->db->select('list',['user_id' => (int)$_SESSION['user_id']], 'TodoList');
 
         //get post data
-       return $this->view->renderTemlpate('list' , ['lists' => $lists , 'actionMessage' => 'List deleted!']);
+       return $this->view->renderTemlpate('list' , ['lists' => $lists]);
     }
 
     public function sortAction()
     {
         //if request is empty
-        if (!Request::post('order')) {
+        if ((!Request::post('order')) || (!Request::post('name'))) {
             return $this->indexAction();
         }
+
+        $columnSelected = Request::post('name');
+
+        if ($columnSelected === "name")
+            $column = 'list_name';
+        else
+            $column = 'created';
 
         switch (Request::post('order'))
         {
             case 'ASC':
                 $this->requireModel('TodoList');
-                $lists = $this->db->selectSorted('list',['user_id' => (int)$_SESSION['user_id']], 'TodoList','list_name','ASC');
+                $lists = $this->db->selectSorted('list',['user_id' => (int)$_SESSION['user_id']], 'TodoList',$column,'ASC');
                 break;
             case 'DESC':
                 $this->requireModel('TodoList');
-                $lists = $this->db->selectSorted('list',['user_id' => (int)$_SESSION['user_id']], 'TodoList','list_name','DESC');
+                $lists = $this->db->selectSorted('list',['user_id' => (int)$_SESSION['user_id']], 'TodoList',$column,'DESC');
                 break;
+            default:
+                return false;
         }
 
         //get post data
-        return $this->view->renderTemlpate('list' , ['lists' => $lists , 'actionMessage' => 'List sorted !']);
+        return $this->view->renderTemlpate('list' , ['lists' => $lists]);
     }
 }

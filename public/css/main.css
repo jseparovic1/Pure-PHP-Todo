@@ -130,21 +130,10 @@ ul {
 .icon:hover {
     color: #adadaa;
 }
-
-/************* LISTs sort *****************/
+/*********** LIST SORT *******************/
 
 #list-sort {
-    padding: 1%;
-}
-#list-sort
-.glyphicon {
-    font-size: 20px;
-    color:darkred;
-    margin-right: 2%;
-}
-#list-sort
-.glyphicon:hover {
-    color: red;
+    width: 250px;
 }
 
 /************* TASK LIST *****************/

@@ -11,15 +11,28 @@
     </div>
 </section>
 
+<!-- Message container -->
+<div class="container">
+    <div class="alert margin20" id="message" style="display: none;" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+</div>
+
 <?php if($lists) :?>
-<section id="list-sort">
-    <div class="container">
-        <div class="row">
-            <span class="glyphicon glyphicon glyphicon-sort-by-alphabet" id="sort-icon-asc" aria-hidden="true"></span>
-            <span class="glyphicon glyphicon glyphicon-sort-by-alphabet-alt" id="sort-icon-desc" aria-hidden="true"></span>
+<!-- Table sort -->
+<div class="container">
+    <div class="row margin20">
+            <label>Sort by :</label>
+            <select id="list-sort" onchange="listSort()">
+                <option>Default</option>
+                <option value="nameAsc">Name: <span> A-Z</span></option>
+                <option value="nameDesc">Name: <span> Z-A</span></option>
+                <option value="createdDesc">Created: <span> newest first</span></option>
+                <option value="createdAsc">Created: <span> oldest first</span></option>
+            </select>
         </div>
     </div>
-</section>
+</div>
 <?php endif; ?>
 
 <section class="main-list">

@@ -24,7 +24,7 @@ function addTask() {
         listId : listId
     };
 
-    makeRequest('POST', 'tasks', createParametars(data));
+    makeRequest('POST', 'tasks', createParametars(data),"task-container");
     $('#taskModal').modal('hide');
     taskCount("add");
     flashMessage("Task added", "alert-success");
@@ -62,7 +62,7 @@ function taskEdit(taskId, task) {
             taskId : taskId
         };
 
-        makeRequest('POST','task/edit', createParametars(data));
+        makeRequest('POST','task/edit', createParametars(data), "task-container");
         $('#editModal').modal('hide');
         flashMessage("Task "+ taskName +" edited", "alert-success");
     };
@@ -82,7 +82,7 @@ function taskFinish(taskId) {
 
     //see if user clicks YES on finish modal then make ajax request
     finishButton.onclick = function () {
-        makeRequest('POST','task/finish', createParametars(data));
+        makeRequest('POST','task/finish', createParametars(data), "task-container");
         $('#finishModal').modal('hide');
         flashMessage("Nice man, task finished. Rock on!", "alert-success");
     };
@@ -101,7 +101,7 @@ function taskDelete(taskId) {
     };
 
     deleteButton.onclick = function () {
-        makeRequest('POST','task/delete', createParametars(data));
+        makeRequest('POST','task/delete', createParametars(data), "task-container");
 
         //update task count in list details
         taskCount("delete");
@@ -120,55 +120,7 @@ function taskSort() {
         sortParam : sortParam
     }
 
-    makeRequest('POST','task/sort',createParametars(data));
-}
-
-/**
- * Make ajax request and add data to task container
- * @param type http request type like , POST,GET,PUT,DELTE ...
- * @param url  send request to this url
- * @param data
- */
-function makeRequest(type, url, data)
-{
-    var request = new XMLHttpRequest();
-    request.open(type, url, true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-    request.onload = function () {
-        if (request.readyState === XMLHttpRequest.DONE) {
-            if (request.status === 200) {
-                //append data to container
-                var container   = document.getElementById("task-container");
-                container.innerHTML = '';
-                container.innerHTML = request.responseText;
-            } else {
-                alert('There was a problem with the request.');
-            }
-        }
-    };
-
-    request.onerror = function() {
-        // There was a connection error of some sort
-        alert('Error connecting to server !');
-    };
-
-    request.send(data);
-}
-
-/**
- * Create string with parametars for ajax request
- * @param data
- */
-function createParametars(data) {
-    var ajaxString = '';
-    for (var property in data) {
-        if (ajaxString.length > 0) {
-            ajaxString += "&";
-        }
-        ajaxString += encodeURI(property + "=" + data[property]);
-    }
-    return ajaxString;
+    makeRequest('POST','task/sort',createParametars(data), "task-container");
 }
 
 function taskCount(operation) {
@@ -185,21 +137,4 @@ function taskCount(operation) {
     task.textContent = taskCount.toString();
 }
 
-/**
- * Flash message to message div for 1 second
- * @param message
- * @param elementClass
- */
-function flashMessage(message, elementClass) {
-    var messageDiv = document.getElementById("message");
-    messageDiv.innerHTML = message;
-
-    messageDiv.classList.add(elementClass);
-    messageDiv.style.display = '';
-
-    //hide message
-    setTimeout(function (){
-        messageDiv.style.display = 'none';
-    }, 2000);
-}
 
