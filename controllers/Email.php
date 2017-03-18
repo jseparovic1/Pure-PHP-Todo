@@ -4,7 +4,6 @@ require "../vendor/phpmailer/phpmailer/PHPMailerAutoload.php";
 
 class Email
 {
-
     private $username;
     private $password;
     private $path;
@@ -22,7 +21,7 @@ class Email
         $this->path 	= $_SERVER['HTTP_HOST']. '/activate';
         $this->host     = $config['host'];
         $this->port     = $config['port'];
-        $this->smtpSecure = $config['secure'];
+        $this->smtpsecure = $config['secure'];
     }
 
     /**
