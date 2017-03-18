@@ -26,6 +26,7 @@ function addTask() {
 
     makeRequest('POST', 'tasks', createParametars(data));
     $('#taskModal').modal('hide');
+    taskCount("add");
     flashMessage("Task added", "alert-success");
 }
 
