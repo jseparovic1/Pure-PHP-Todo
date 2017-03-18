@@ -16,5 +16,13 @@ return [
         'options' => [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]
+    ],
+    'email' => [
+        'username' => 'johndoe@john.com',
+        'password' => 'mostSecretPasword',
+        'secure' => 'tls',
+        'port'  => '587',
+        'host'  => 'smtp.john.com',
+        'smtpAuth' => true
     ]
 ];
