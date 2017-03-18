@@ -87,6 +87,32 @@ class TodoTaskController extends Controller
         $this->showTasks(Request::post('listId'));
     }
 
+    public function sort()
+    {
+        $param = Request::post('sortParam');
+        $listId = Request::post('listId');
+
+        switch ($param)
+        {
+            case 'name':
+                $this->showTasks($listId, "task_name", 'ASC');
+                break;
+            case 'deadline':
+                $this->showTasks($listId, "task_deadline", 'ASC');
+                break;
+            case 'priority':
+                $this->showTasks($listId, "task_priority", 'DESC');
+                break;
+            case 'status':
+                $this->showTasks($listId, "task_status", 'ASC');
+                break;
+            default :
+                $this->showTasks($listId);
+        }
+
+
+    }
+
     protected function showTasks(int $listId,string $orderColumn = 'task_deadline',string $order = 'ASC')
     {
         $task = $this->requireModel('Task');

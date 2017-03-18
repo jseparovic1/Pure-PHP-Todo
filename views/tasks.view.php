@@ -26,9 +26,24 @@
     <button class="btn btn-primary" data-toggle="modal" data-target="#taskModal">New task</button>
 </div>
 
+<!-- Message container -->
 <div class="container">
     <div class="alert margin20" id="message" style="display: none;" >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+</div>
+
+<!-- Table sort -->
+<div class="container">
+    <div class="row margin20">
+        <label>Sort by :</label>
+        <select id="table-sort" onchange="taskSort()">
+            <option>Default</option>
+            <option value="name">Name</option>
+            <option value="deadline">Deadline</option>
+            <option value="priority">Priority</option>
+            <option value="status">Status</option>
+        </select>
     </div>
 </div>
 

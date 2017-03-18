@@ -33,7 +33,7 @@ class TodoListController extends Controller
 
         //create path
         $path = "/tasks?listId=".(int)$newList[0]->list_id;
-        var_dump($path);
+
         Redirect::to($path);
     }
 

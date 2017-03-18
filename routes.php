@@ -34,4 +34,6 @@ $router->post('tasks','TodoTaskController@store');
 $router->post('task/delete','TodoTaskController@delete');
 $router->post('task/finish','TodoTaskController@finish');
 $router->post('task/edit','TodoTaskController@edit');
+$router->post('task/sort','TodoTaskController@sort');
+
 

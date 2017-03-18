@@ -109,6 +109,19 @@ function taskDelete(taskId) {
     };
 }
 
+function taskSort() {
+    var selectDiv = document.getElementById("table-sort");
+    var listId 		= document.getElementById("list-modal-id").value;
+    var sortParam = selectDiv.options[selectDiv.selectedIndex].value;
+
+    var data = {
+        listId : listId,
+        sortParam : sortParam
+    }
+
+    makeRequest('POST','task/sort',createParametars(data));
+}
+
 /**
  * Make ajax request and add data to task container
  * @param type http request type like , POST,GET,PUT,DELTE ...
@@ -188,3 +201,4 @@ function flashMessage(message, elementClass) {
         messageDiv.style.display = 'none';
     }, 2000);
 }
+
