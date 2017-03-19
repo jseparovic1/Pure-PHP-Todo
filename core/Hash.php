@@ -18,7 +18,7 @@ class Hash
     }
 
     /**
-     * Verify pasword and hash
+     * Verify pasword for matching hash
      * @param $password
      * @param $hash
      * @return bool

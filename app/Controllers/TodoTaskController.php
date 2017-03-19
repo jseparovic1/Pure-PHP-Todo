@@ -110,8 +110,6 @@ class TodoTaskController extends Controller
             default :
                 $this->showTasks($listId);
         }
-
-
     }
 
     protected function showTasks(int $listId,string $orderColumn = 'task_deadline',string $order = 'ASC')

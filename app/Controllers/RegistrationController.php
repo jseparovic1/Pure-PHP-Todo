@@ -58,22 +58,21 @@ class RegistrationController extends Controller
             ]);
     }
 
-
     public function activateAction()
     {
         $code = Request::get('c');
         $email = Request::get('e');
 
-        $user = $this->db->select('user', ['user_email' => $email], 'User');
+        $user = $this->db->select('user', ['user_email' => $email], 'User')[0];
 
         //user is already activated
-        if ($user[0]->getStatus() === '1')
+        if ($user->getStatus() === '1')
             return $this->view->render('auth/message', ['messageError' => 'Account already activated !']);
 
         //activate user
-        if (!empty($user[0]) && ($user[0]->getActivationCode() === $code)) {
-            $user[0]->setStatus(1);
-            $user[0]->updateStatus();
+        if (!empty($user) && ($user->getActivationCode() === $code)) {
+            $user->setStatus(1);
+            $user->updateStatus();
             return $this->view->render('auth/message', ['message' => 'Activation succesful !']);
         }
 
