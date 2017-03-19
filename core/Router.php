@@ -1,7 +1,6 @@
 <?php
 namespace Viper;
 
-use App\Controllers;
 /**
  * Router class
  *
@@ -19,7 +18,7 @@ class Router
      * Loads user's route file
      *
      * @param string $file
-     * @return Router
+     * @return Router instance of Router class
      */
     public static function load(string $file)
     {
@@ -34,11 +33,11 @@ class Router
      * Register controller for a specifed get route
      *
      * @param string $uri
-     * @param string $controllerAndMethod  HomeControler@methodName
+     * @param string $controllerAndAction  HomeControler@action
      */
-    public function get(string $uri, string $controllerAndMethod)
+    public function get(string $uri, string $controllerAndAction)
     {
-        $this->routes['GET'][$uri] = $controllerAndMethod;
+        $this->routes['GET'][$uri] = $controllerAndAction;
     }
 
     /**
@@ -72,6 +71,7 @@ class Router
             return $this->callControllerAction($controller,$action);
         }
         else {
+            //route for requested uri not found
             Redirect::to('/');
         }
     }
