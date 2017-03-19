@@ -7,21 +7,26 @@ namespace Viper;
 
 class Validate
 {
-    public function email(string $email) : bool
+    /**
+     * Validate email
+     *
+     * @param string $email
+     * @return bool
+     */
+    public function email(string $email)
     {
-        if (!filter_var($email,FILTER_VALIDATE_EMAIL)) {
-            return false;
-        } else {
-            return true;
-        }
+        return (filter_var($email,FILTER_VALIDATE_EMAIL)) ? true : false;
     }
 
-    public function password(string $password)
+    /**
+     * Validate password length
+     *
+     * @param string $password
+     * @param int $length
+     * @return bool
+     */
+    public function passwordLength(string $password, int $length)
     {
-        if(strlen(utf8_decode($password)) < 5) {
-           return false;
-        } else {
-            return true;
-        }
+        return (strlen(utf8_decode($password)) < $length);
     }
 }

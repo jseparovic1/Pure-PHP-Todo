@@ -23,8 +23,8 @@ class RegistrationModel extends Model
         }
 
         //validate password
-        if (!$v->password($password)) {
-            $this->errors[] = 'Password must be at least 5 characters';
+        if (!$v->passwordLength($password,'3')) {
+            $this->errors[] = 'Password must be at least 3 characters';
             return false;
         }
 

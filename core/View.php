@@ -24,14 +24,13 @@ class View
             require $viewPath;
             require '../views/templates/footer.php';
 
-
         } else {
             echo "view doesn't exist !!";
         }
     }
 
     /**
-     * Render only view
+     * Render template without header and footer
      *
      * @param $view view name
      * @param array $arguments
