@@ -1,2 +1,2 @@
 # Pure-PHP-Todo
-Todo app with autentification written in pure php
+Todo app with autentification and email activation
