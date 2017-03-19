@@ -1,6 +1,6 @@
 <?php
-
 namespace Viper;
+
 /**
  * View class
  */

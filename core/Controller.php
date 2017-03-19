@@ -21,6 +21,7 @@ abstract class Controller
             session_start();
         }
 
+        //if user is not on register or activation page and isn't logged in return to home
         if (Request::uri()!== '' && Request::uri()!=='register' && Request::uri()!=='activate') {
             if (!isset($_SESSION['logged_in'])) {
                 Redirect::to('/');
@@ -28,31 +29,18 @@ abstract class Controller
         }
 
         $config = require '../config.php';
-        //query builder
         $this->db = new QueryBuilder(Connection::make($config['database']));
-        //views
         $this->view = new View();
     }
 
     /**
      * Creates an instance of model
-     * @param $name
-     * @return mixed
+     * @param $modelName
+     * @return model instance of model class
      */
-    public function getModel($name)
+    public function getModel(string $modelName)
     {
-        $model = "App\\Models\\{$name}";
+        $model = "App\\Models\\{$modelName}";
         return $model = new $model();
     }
-
-//    /**
-//     * Requires model
-//     *
-//     * @param $name
-//     * @return mixed
-//     */
-//    public function requireModel($name)
-//    {
-//        return require '../Models/' . $name . '.php';
-//    }
 }
