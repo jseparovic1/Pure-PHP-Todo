@@ -8,6 +8,10 @@ use Viper\Database\Connection;
  */
 abstract class Model
 {
+    /**
+     * Instance of db connection
+     * @var \PDO
+     */
     protected $db;
 
     public function __construct()

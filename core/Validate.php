@@ -27,6 +27,6 @@ class Validate
      */
     public function passwordLength(string $password, int $length)
     {
-        return (strlen(utf8_decode($password)) < $length);
+        return (strlen(utf8_decode($password)) > $length) ? true : false;
     }
 }

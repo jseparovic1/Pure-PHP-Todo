@@ -23,7 +23,7 @@ class RegistrationModel extends Model
         }
 
         //validate password
-        if (!$v->passwordLength($password,'3')) {
+        if (!$v->passwordLength($password,3)) {
             $this->errors[] = 'Password must be at least 3 characters';
             return false;
         }
