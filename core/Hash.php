@@ -30,7 +30,7 @@ class Hash
 
     /**
      * Creates random activation code
-     * @return string 
+     * @return string
      */
     public static function getActivationCode()
     {
