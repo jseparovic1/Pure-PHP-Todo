@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use Viper\{Model,Hash};
+use Viper\{Model, Hash, App};
 use \PDO;
 use \DateTime;
 
@@ -25,11 +25,11 @@ class LoginModel extends Model
         }
 
         //find user with matching email and password
-        $user = $this->findUserByEmail($email);
+        $user = $this->findUserByEmail($email)[0];
 
         //check if email not found
         if (!$user) {
-            //email is not registered but we wouldn't tell that user
+            //email is not registered but we wouldn't tell that to user
             $this->error = 'Wrong email or password !';
             return false;
         }
@@ -48,6 +48,7 @@ class LoginModel extends Model
 
         //create new DateTime object with current time
         $time = new DateTime('NOW');
+
         //format it as string
         $now = $time->format('Y-m-d H::i::s');
 
@@ -62,18 +63,16 @@ class LoginModel extends Model
 
     private function findUserByEmail(string $email)
     {
-        $statment = $this->db->prepare("SELECT * FROM user WHERE user_email=:email");
-        $statment->bindParam(':email' , $email, PDO::PARAM_STR);
-        $statment->setFetchMode(PDO::FETCH_CLASS, 'App\Models\User');
-        $statment->execute();
-
-        return $statment->fetch();
+        return App::get('qbuilder')->select('user', ["user_email" => $email],'User');
     }
 
     private function updateLastLoginInfo($user_id, $last_login)
     {
-        $sql = "UPDATE user SET last_login = ? WHERE user_id = ? ";
-        $this->db->prepare($sql)->execute([$last_login , $user_id]);
+        App::get('qbuilder')->update(
+            'user',
+            ["last_login" => $last_login],
+            ["user_id" => $user_id]
+        );
     }
     private function setSessionForLoggedUser($user)
     {

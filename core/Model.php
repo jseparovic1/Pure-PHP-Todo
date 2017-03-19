@@ -16,7 +16,6 @@ abstract class Model
 
     public function __construct()
     {
-        $config = require '../config.php';
-        $this->db = Connection::make($config['database']);
+        $this->db = App::get('database');
     }
 }

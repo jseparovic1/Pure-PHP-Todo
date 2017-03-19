@@ -173,12 +173,12 @@ class QueryBuilder
     }
 
     /**
-     * delete data from table
+     * Update data in table
      *
      * @param $table
-     * @param $parameters
+     * @param $setParams
+     * @param $whereParams
      * @param string $join
-     * @throws Exception
      */
     public function update($table, $setParams, $whereParams, $join = '')
     {

@@ -16,5 +16,5 @@ require '../vendor/autoload.php';
 $config = require '../config.php';
 
 App::register('config', $config);
-App::register('db', Connection::make(App::get('config')['database']));
-App::register('qb', new QueryBuilder(Connection::make(App::get('config')['database'])));
+App::register('database', Connection::make(App::get('config')['database']));
+App::register('qbuilder', new QueryBuilder(Connection::make(App::get('config')['database'])));

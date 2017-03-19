@@ -29,7 +29,7 @@ class RegistrationModel extends Model
         }
 
         //find user with matching email
-        $isUserFound = $this->findUserByEmail($email);
+        $isUserFound = $this->findUserByEmail($email)[0];
 
         //check if user found
         if ($isUserFound) {
@@ -47,13 +47,9 @@ class RegistrationModel extends Model
 
         return true;
     }
+
     private function findUserByEmail($email)
     {
-        $statment = $this->db->prepare("SELECT * FROM user WHERE user_email=:email");
-        $statment->bindParam(':email' , $email, PDO::PARAM_STR);
-        $statment->setFetchMode(PDO::FETCH_CLASS, 'User');
-        $statment->execute();
-
-        return $statment->fetch();
+        return App::get('qbuilder')->select('user', ["user_email" => $email],'User');
     }
 }
