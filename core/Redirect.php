@@ -6,6 +6,10 @@ namespace Viper;
  */
 class Redirect
 {
+    /**
+     * Redirect to path
+     * @param $path
+     */
     public static function to($path)
     {
         header("Location: $path");
