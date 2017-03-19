@@ -43,7 +43,7 @@ class Request
     /**
      * Find user submitted post value by key
      * @param $key
-     * @return post valuse
+     * @return post value
      */
     public static function post($key)
     {
