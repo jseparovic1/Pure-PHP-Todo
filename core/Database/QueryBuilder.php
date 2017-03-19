@@ -1,4 +1,9 @@
 <?php
+
+namespace Viper\Database;
+
+use PDO;
+
 /**
  * Builds query for database
  */
@@ -22,11 +27,11 @@ class QueryBuilder
      *
      * @param $table
      * @param $parameters
-     * @param $className
-     * @param $join AND OR ...
+     * @param $model
+     * @param $join
      * @return array
      */
-    public function select($table, $parameters, $className = [], $join = '')
+    public function select($table, $parameters, $model = '', $join = '')
     {
         //get all columns
         $columns = array_keys($parameters);
@@ -52,8 +57,8 @@ class QueryBuilder
         }
 
         //check if classname is set
-        if ($className) {
-            return $statment->fetchAll(PDO::FETCH_CLASS,"$className");
+        if ($model) {
+            return $statment->fetchAll(PDO::FETCH_CLASS,"App\\Models\\{$model}");
         } else {
             return $statment->fetchAll(PDO::FETCH_CLASS);
         }
@@ -63,12 +68,12 @@ class QueryBuilder
      * Select sorted data from table
      * @param $table
      * @param $parameters
-     * @param array $className
+     * @param $model
      * @param $orderColumn
      * @param $orderType
      * @return array
      */
-    public function selectSorted($table, $parameters, $className = [], $orderColumn, $orderType)
+    public function selectSorted($table, $parameters, $model = '', $orderColumn, $orderType)
     {
         //get all columns
         $column = array_keys($parameters);
@@ -95,8 +100,8 @@ class QueryBuilder
         }
 
         //check if classname is set
-        if ($className) {
-            return $statment->fetchAll(PDO::FETCH_CLASS,"$className");
+        if ($model) {
+            return $statment->fetchAll(PDO::FETCH_CLASS,"App\\Models\\{$model}");
         } else {
             return $statment->fetchAll(PDO::FETCH_CLASS);
         }

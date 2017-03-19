@@ -1,4 +1,7 @@
 <?php
+namespace Viper;
+
+use Viper\Database\{QueryBuilder,Connection};
 
 /**
  * Base controler
@@ -38,18 +41,18 @@ abstract class Controller
      */
     public function getModel($name)
     {
-        require '../models/' . $name . '.php';
-        return $name = new $name();
+        $model = "App\\Models\\{$name}";
+        return $model = new $model();
     }
 
-    /**
-     * Requires model
-     *
-     * @param $name
-     * @return mixed
-     */
-    public function requireModel($name)
-    {
-        return require '../models/' . $name . '.php';
-    }
+//    /**
+//     * Requires model
+//     *
+//     * @param $name
+//     * @return mixed
+//     */
+//    public function requireModel($name)
+//    {
+//        return require '../Models/' . $name . '.php';
+//    }
 }

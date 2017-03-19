@@ -1,5 +1,7 @@
 <?php
+namespace Viper;
 
+use App\Controllers;
 /**
  * Router class
  *
@@ -11,7 +13,6 @@ class Router
     private $routes = [
         'GET' => [],
         'POST' => [],
-        'DELETE' => []
         ];
 
     /**
@@ -52,17 +53,6 @@ class Router
     }
 
     /**
-     * Register controller and method for a specifed delete route
-     *
-     * @param string $uri for example "login"
-     * @param string $controllerAndMethod HomeControler@methodName
-     */
-    public function delete(string $uri, string $controllerAndMethod)
-    {
-        $this->routes['DELETE'][$uri] = $controllerAndMethod;
-    }
-
-    /**
      * Call controller method for defined route
      *
      * @param string $uri
@@ -95,7 +85,8 @@ class Router
      */
     private function callControllerAction(string $controller,string $action)
     {
-        require '../controllers/' . $controller . '.php';
+        $controller = "App\\Controllers\\{$controller}";
+
         $controller = new $controller();
         if (!method_exists($controller,$action)) {
             echo "No controller method defined\n";

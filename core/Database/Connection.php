@@ -1,4 +1,8 @@
 <?php
+namespace Viper\Database;
+
+use PDO;
+use PDOException;
 
 /**
  * Database class

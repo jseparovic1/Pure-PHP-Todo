@@ -1,4 +1,5 @@
 <?php
+namespace Viper;
 
 /**
  * Simple redirection class

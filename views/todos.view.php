@@ -11,13 +11,6 @@
     </div>
 </section>
 
-<!-- Message container -->
-<div class="container">
-    <div class="alert margin20" id="message" style="display: none;" >
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div>
-</div>
-
 <?php if($lists) :?>
 <!-- Table sort -->
 <div class="container">
@@ -34,6 +27,13 @@
     </div>
 </div>
 <?php endif; ?>
+
+<!-- Message container -->
+<div class="container">
+    <div class="alert margin20" id="message" style="display: none;" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+</div>
 
 <section class="main-list">
     <div class="container">

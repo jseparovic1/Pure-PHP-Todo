@@ -1,4 +1,5 @@
 <?php
+namespace Viper;
 
 /**
  * Geting HTTP request details

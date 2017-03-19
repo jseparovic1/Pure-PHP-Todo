@@ -1,6 +1,8 @@
 <?php
 
-require "../vendor/phpmailer/phpmailer/PHPMailerAutoload.php";
+namespace App;
+
+use \PHPMailer;
 
 class Email
 {
@@ -9,7 +11,7 @@ class Email
     private $path;
     private $host;
     private $port;
-    private $smtpsecure;
+    private $smtpSecure;
 
     /**
      * 	@param string[] $config eamil data
@@ -21,13 +23,12 @@ class Email
         $this->path 	= $_SERVER['HTTP_HOST']. '/activate';
         $this->host     = $config['host'];
         $this->port     = $config['port'];
-        $this->smtpsecure = $config['secure'];
+        $this->smtpSecure = $config['secure'];
     }
 
     /**
      * Send activation email to user
      * @param string $email  users email
-     * @param string $username
      * @param string $code  activation code
      * @return bool
      */

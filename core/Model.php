@@ -1,4 +1,7 @@
 <?php
+namespace Viper;
+
+use Viper\Database\Connection;
 
 /**
  * Base model class
