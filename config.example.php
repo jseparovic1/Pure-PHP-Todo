@@ -17,6 +17,9 @@ return [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]
     ],
+    /**
+     * email
+     */
     'email' => [
         'username' => 'johndoe@john.com',
         'password' => 'mostSecretPasword',
