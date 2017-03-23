@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use Viper\{Model,Validate,Hash};
+use Viper\{Model,Validate,Hash, App};
 use \PDO;
 
 class RegistrationModel extends Model
@@ -29,7 +29,7 @@ class RegistrationModel extends Model
         }
 
         //find user with matching email
-        $isUserFound = $this->findUserByEmail($email)[0];
+        $isUserFound = $this->findUserByEmail($email);
 
         //check if user found
         if ($isUserFound) {
